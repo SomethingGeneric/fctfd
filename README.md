@@ -1,0 +1,3 @@
+# hpscoreboard
+
+Simple scoreboard app
