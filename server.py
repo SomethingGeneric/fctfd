@@ -4,6 +4,7 @@ import yaml
 import os
 
 app = Flask(__name__)
+PASSWD = "chauncey12345"
 
 teams = []
 challenges = []
@@ -49,12 +50,18 @@ def login():
     else:
         return "use a normal request type please"
 
+@app.route("/logout")
+def do_logout():
+    r = make_response(redirect(url_for("index")))
+    r.set_cookie("sk-lol", "", expires=0)
+    return r
+
 @app.route("/admin")
-def admin():
-    if request.cookies.get("sk-lol") == "chauncey12345":
-        return "haha you're a gamer"
+def admin(): 
+    if request.cookies.get("sk-lol") == PASSWD:
+        return render_template("page.html", site_name="HP Scoreboard", page_name="Admin", content=render_template("admin.html"))
     else:
-        return "nope"
+        return redirect(url_for("login"))
 
 if __name__ == "__main__":
     app.run(debug=True, host="0.0.0.0")
