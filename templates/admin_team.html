@@ -1,0 +1,23 @@
+<h3>{{ team_name }}</h3>
+<p>Score: {{ score }}</p>
+<hr/>
+<p>Members:</p>
+<ul>
+{% for member in members %}
+    <li>{{ member }}</li>
+{% endfor %}
+</ul>
+<hr/>
+<p>Completed challenges:</p>
+<ul>
+{% for challenge in challenges_done %}
+    <li>{{ challenge }}</li>
+{% endfor %}
+</ul>
+<hr/>
+<p>Challenges in progress:</p>
+<ul>
+{% for challenge in challenges_working %}
+    <li>{{ challenge }}</li>
+{% endfor %}
+</ul>

@@ -4,7 +4,7 @@ import os
 teams = []
 
 if not os.path.exists("db"):
-    os.mkdir("db")  
+    os.mkdir("db")
 
 
 next = ""
