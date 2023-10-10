@@ -1,0 +1,26 @@
+@font-face {
+    font-family: 'Harryman';
+    src: url('/static/harryp.ttf');
+}
+
+body {
+    background: #9e7649;
+    color: #2c2f36;
+    font-family: 'Harryman', serif;
+}
+
+h1 {
+    font-size: 3em;
+}
+
+h2 {
+    font-size: 2em;
+}
+
+h3 {
+    font-size: 1.5em;
+}
+
+p {
+    font-size: 1.2em;
+}

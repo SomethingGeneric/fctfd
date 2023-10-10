@@ -1,8 +1,15 @@
 <html>
     <head>
         <title>GREAT SUCCESS</title>
+        <link rel="stylesheet" href="/static/style.css"
     </head>
     <body>
         <h1>Congrats {{team_name}} for winning!</h1>
+        {% if players %}
+            <h2>The winning players are:</h2>
+            {% for player in players %}
+                <p>{{player}}</p>
+            {% endfor %}
+        {% endif %}
     </body>
 </html>

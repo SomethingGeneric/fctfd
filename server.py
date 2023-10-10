@@ -84,7 +84,6 @@ reload_data()
 def index():
     return render_template(
         "page.html",
-        site_name="HP Scoreboard",
         page_name="Home",
         content="<p><a href='/scoreboard'>Scoreboard</a></p><p><a href='/admin'>Admin</a></p>",
     )
@@ -98,7 +97,9 @@ def scoreboard():
 
     for team in teams:
         if int(team["score"]) == int(max_points):
-            return render_template("won.html", team_name=team["name"])
+            return render_template(
+                "won.html", team_name=team["name"], players=team["players"]
+            )
 
     sb_html = ""
 
@@ -112,7 +113,6 @@ def scoreboard():
 
     return render_template(
         "page.html",
-        site_name="HP Scoreboard",
         page_name="Scoreboard",
         auto_refresh=True,
         content=sb_html,
@@ -124,7 +124,6 @@ def login():
     if request.method == "GET":
         return render_template(
             "page.html",
-            site_name="HP Scoreboard",
             page_name="Login",
             content=render_template("login.html"),
         )
@@ -167,7 +166,6 @@ def team(team_name):
                 if team["name"] == team_name:
                     return render_template(
                         "page.html",
-                        site_name="HP Scoreboard",
                         page_name=f"Details - {team_name}",
                         content=render_template(
                             "admin_team.html",
@@ -234,7 +232,6 @@ def challenge(challenge_name):
                 if challenge["name"] == challenge_name:
                     return render_template(
                         "page.html",
-                        site_name="Hp Scoreboard",
                         page_name=f"Challenge Details - {challenge_name}",
                         content=render_template(
                             "admin_challenge.html",
@@ -256,21 +253,22 @@ def admin():
         t_html = "<h3>Teams:</h3><ul>"
         for team in teams:
             t_html += (
-                f"<li><a href=/teams/{urllib.parse.quote(team)}>" + team + "</a></li>"
+                f"<li><p><a href=/teams/{urllib.parse.quote(team)}>"
+                + team
+                + "</a></p></li>"
             )
         t_html += "</ul>"
         c_html = "<h3>Challenges:</h3><ul>"
         challenges = dlist("challenges")
         for challenge in challenges:
             c_html += (
-                f"<li><a href=/challenges/{urllib.parse.quote(challenge)}>"
+                f"<li><p><a href=/challenges/{urllib.parse.quote(challenge)}>"
                 + challenge
-                + "</a></li>"
+                + "</a></p></li>"
             )
         c_html += "</ul>"
         return render_template(
             "page.html",
-            site_name="HP Scoreboard",
             page_name="Admin",
             content=render_template("admin.html", teams=t_html, challenges=c_html),
         )

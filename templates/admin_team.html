@@ -2,27 +2,33 @@
 <p>Score: {{ score }}</p>
 <a href="/admin">Go back</a>
 <hr/>
-<p>Members:</p>
-<ul>
-{% for member in members %}
-    <li>{{ member }}</li>
-{% endfor %}
-</ul>
-<hr/>
+{% if members %}
+    <p>Members:</p>
+    <ul>
+    {% for member in members %}
+        <li>{{ member }}</li>
+    {% endfor %}
+    </ul>
+    <hr/>
+{% endif %}
+{% if challenges_done %}
 <p>Completed challenges:</p>
 <ul>
-{% for challenge in challenges_done %}
-    <li>{{ challenge }}</li>
-{% endfor %}
+    {% for challenge in challenges_done %}
+        <li>{{ challenge }}</li>
+    {% endfor %}
 </ul>
 <hr/>
-<p>Challenges in progress:</p>
-<ul>
-{% for challenge in challenges_working %}
-    <li>{{ challenge }}</li>
-{% endfor %}
-</ul>
-<hr/>
+{% endif %}
+{% if challenges_working %}
+    <p>Challenges in progress:</p>
+    <ul>
+    {% for challenge in challenges_working %}
+        <li>{{ challenge }}</li>
+    {% endfor %}
+    </ul>
+    <hr/>
+{% endif %}
 <form method="POST">
     <label for="member_add">Add member to team:</label>
     <input type="text" id="member_add" name="member_add">

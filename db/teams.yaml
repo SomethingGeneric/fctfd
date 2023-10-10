@@ -1,4 +1,4 @@
-- challenges-complete:
+- challenges-complete: null
   challenges-working: []
   logo-path: ''
   name: Skiff
@@ -10,12 +10,16 @@
   name: Ireland
   players: []
   score: 0
-- challenges-complete: []
+- challenges-complete:
+  - Test Challenge 2
+  - Test Challenge 1
+  - Test Challenge 3
   challenges-working: []
   logo-path: ''
   name: Foster
-  players: []
-  score: 0
+  players:
+  - Test
+  score: '300'
 - challenges-complete: []
   challenges-working: []
   logo-path: ''
