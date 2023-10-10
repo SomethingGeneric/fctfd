@@ -1,13 +1,9 @@
 - challenges-complete:
-  - Test Challenge 2
-  - Test Challenge 1
-  - Test Challenge 3
-  - Test Challenge 4
   challenges-working: []
   logo-path: ''
   name: Skiff
   players: []
-  score: '400'
+  score: '0'
 - challenges-complete: []
   challenges-working: []
   logo-path: ''
