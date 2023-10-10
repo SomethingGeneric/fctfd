@@ -9,6 +9,7 @@ git pull
 
 my_pwd=$(pwd)
 
+cp hpscoreboard.service.ex hpscoreboard.service
 sed -i "s/MYPWD/${my_pwd//\//\\/}/g" hpscoreboard.service
 
 cp hpscoreboard.service /etc/systemd/system/hpscoreboard.service
