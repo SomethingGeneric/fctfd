@@ -37,6 +37,28 @@ def save_data():
     with open("db/challenges.yaml", "w") as f:
         f.write(yaml.dump(challenges))
 
+def get_attrib(name, key):
+    for team in teams:
+        if team['name'] == name:
+            return team[key]
+    return None
+
+def has_team(fteam):
+    for team in teams:
+        if team['name'] == fteam:
+            return True
+    return False
+
+def edit_team(name, key, value):
+    global teams
+
+    for team in teams:
+        if team['name'] == name:
+            team[key] = value
+            return True
+        
+    return False
+
 
 reload_data()
 
@@ -109,39 +131,76 @@ def dlist(data):
             cn.append(challenge["name"])
         return cn
     else:
-        return "Invalid data type"
+        return "Invalid data type", 500
 
 
 @app.route("/teams/<team_name>", methods=["GET", "POST"])
 def team(team_name):
     if request.method == "GET":
-        for team in teams:
-            if team["name"] == team_name:
-                return render_template(
-                    "page.html",
-                    site_name="HP Scoreboard",
-                    page_name=f"Details - {team_name}",
-                    content=render_template(
-                        "admin_team.html",
-                        team_name=team_name,
-                        score=team["score"],
-                        members=team["players"],
-                        challenges_done=team["challenges-complete"],
-                        challenges_working=team["challenges-working"],
-                    ),
-                )
-        return "{}"
+        if request.cookies.get("sk-lol") == PASSWD:
+            team_name = urllib.parse.unquote(team_name)
+            for team in teams:
+                if team["name"] == team_name:
+                    return render_template(
+                        "page.html",
+                        site_name="HP Scoreboard",
+                        page_name=f"Details - {team_name}",
+                        content=render_template(
+                            "admin_team.html",
+                            team_name=team_name,
+                            score=team["score"],
+                            members=team["players"],
+                            challenges_done=team["challenges-complete"],
+                            challenges_working=team["challenges-working"],
+                        ),
+                    )
+            return "{}", 404
+        else:
+            return redirect("/login")
     else:
-        return "WIP"
+        try:
+            if not has_team(team_name):
+                return f"No such team: {team_name}", 500
+            if request.form.get("member_add") != '':
+                print(f"Adding member to {team_name}")
+                old_players = get_attrib(team_name, 'players')
+                new_players = old_players
+                new_players.append(request.form.get("member_add"))
+                edit_team(team_name, 'players', new_players)
+            if request.form.get("member_remove") != '':
+                print(f"Removing member from {team_name}")
+                old_players = get_attrib(team_name, 'players')
+                for p in old_players:
+                    if p == request.form.get("member_remove"):
+                        old_players.remove(p)
+                edit_team(team_name, 'players', old_players)
+            save_data()
+            return redirect(f"/teams/{team_name}")
+        except Exception as e:
+            return f"Error: {str(e)}"
+
 
 
 @app.route("/challenges/<challenge_name>", methods=["GET", "POST"])
 def challenge(challenge_name):
     if request.method == "GET":
-        for challenge in challenges:
-            if challenge["name"] == challenge_name:
-                return challenge
-        return "{}"
+        if request.cookies.get("sk-lol") == PASSWD:
+            challenge_name = urllib.parse.unquote(challenge_name)
+            for challenge in challenges:
+                if challenge["name"] == challenge_name:
+                    return render_template(
+                        "page.html",
+                        site_name="Hp Scoreboard",
+                        page_name=f"Challenge Details - {challenge_name}",
+                        content=render_template(
+                            "admin_challenge.html",
+                            points=challenge["points"],
+                            description=challenge["description"],
+                        ),
+                    )
+            return f"Could not find '{challenge_name}'", 404
+        else:
+            return redirect("/login")
     else:
         return "WIP"
 
