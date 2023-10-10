@@ -1,7 +1,17 @@
 <div class="team_box">
-    <h3>{{ team_name }}: {{ points }}</h3>
-    <progress id="{{ team_name }}" value="{{ points }}" max="{{ max_points }}"> {{ points }}% </progress>
+    <h3>{{ team['name'] }}: {{ team['score'] }}</h3>
+    {% if team['challenges-working'] %}
+        <h4>Challenges in progress: {{ team['challenges-working']|length }}</h4>
+    {% else %}
+        <h4>Challenges in progress: 0</h4>
+    {% endif %}
+    {% if team['challenges-complete'] %}
+        <h4>Challenges done: {{ team['challenges-complete']|length }}</h4>
+    {% else %}
+        <h4>Challenges done: 0</h4>
+    {% endif %}
+    <progress id="{{ team['name'] }}" value="{{ team['score'] }}" max="{{ max_points }}"> {{ team['score'] }}% </progress>
     <br/>
-    <img src="{{ team_logo }}" alt="{{ team_name }}" width="100" height="100">
+    <img src="{{ team_logo }}" alt="{{ team['name'] }}" width="100" height="100">
 </div>
 <br/><br/>

@@ -8,8 +8,10 @@
     {% endif %}
 </head>
 <body>
-    <h1>HP Scoreboard</h1>
-    <h2>{{ page_name }}</h2>
+    {% if not embed %}
+        <h1>HP Scoreboard</h1>
+        <h2>{{ page_name }}</h2>
+    {% endif %}
     {{ content | safe }}
 </body>
 </html>

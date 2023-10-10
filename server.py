@@ -110,8 +110,7 @@ def scoreboard():
             lp = "/static/" + team["logo-path"]
         sb_html += "<div class=\"grid-item\">" + render_template(
             "team_prog.html",
-            team_name=team["name"],
-            points=team["score"],
+            team=team,
             max_points=max_points,
             team_logo=lp,
         ) + "</div>"
@@ -122,6 +121,7 @@ def scoreboard():
         "page.html",
         page_name="Scoreboard",
         auto_refresh=True,
+        embed=True,
         content=sb_html,
     )
 
