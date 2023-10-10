@@ -101,19 +101,23 @@ def scoreboard():
                 "won.html", team_name=team["name"], players=team["players"]
             )
 
-    sb_html = "<div class=\"grid-container\">"
+    sb_html = '<div class="grid-container">'
 
     for team in teams:
-        if team["logo-path"] == '':
+        if team["logo-path"] == "":
             lp = "/static/error.png"
         else:
             lp = "/static/" + team["logo-path"]
-        sb_html += "<div class=\"grid-item\">" + render_template(
-            "team_prog.html",
-            team=team,
-            max_points=max_points,
-            team_logo=lp,
-        ) + "</div>"
+        sb_html += (
+            '<div class="grid-item">'
+            + render_template(
+                "team_prog.html",
+                team=team,
+                max_points=max_points,
+                team_logo=lp,
+            )
+            + "</div>"
+        )
 
     sb_html += "</div>"
 
@@ -224,6 +228,20 @@ def team(team_name):
                         curr_points = int(get_attrib(team_name, "score"))
                         new_pts = curr_points + points
                         edit_team(team_name, "score", str(new_pts))
+            if request.form.get("challenge_remove") != "":
+                challenges_done = get_attrib(team_name, "challenges-complete")
+                challenges_wip = get_attrib(team_name, "challenges-working")
+                challenge_name = request.form.get("challenge_remove")
+                if challenge_name in challenges_wip:
+                    challenges_wip.remove(challenge_name)
+                    edit_team(team_name, "challenges-working", challenges_wip)
+                if challenge_name in challenges_done:
+                    challenges_done.remove(challenge_name)
+                    edit_team(team_name, "challenges-complete", challenges_done)
+                    points = int(get_chall(challenge_name)["points"])
+                    curr_points = int(get_attrib(team_name, "score"))
+                    new_pts = curr_points - points
+                    edit_team(team_name, "score", str(new_pts))
             save_data()
             return redirect(f"/teams/{team_name}")
         except Exception as e:
