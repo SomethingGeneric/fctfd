@@ -96,6 +96,10 @@ def scoreboard():
     for challenge in challenges:
         max_points += challenge["points"]
 
+    for team in teams:
+        if int(team["score"]) == int(max_points):
+            return render_template("won.html", team_name=team["name"])
+
     sb_html = ""
 
     for team in teams:
@@ -107,7 +111,11 @@ def scoreboard():
         )
 
     return render_template(
-        "page.html", site_name="HP Scoreboard", page_name="Scoreboard", content=sb_html
+        "page.html",
+        site_name="HP Scoreboard",
+        page_name="Scoreboard",
+        auto_refresh=True,
+        content=sb_html,
     )
 
 
@@ -135,7 +143,6 @@ def do_logout():
     return r
 
 
-@app.route("/list/<data>")
 def dlist(data):
     if data == "teams":
         tn = []
@@ -199,19 +206,19 @@ def team(team_name):
                     edit_team(team_name, "challenges-working", challenges_wip)
             if request.form.get("challenge_finish") != "":
                 print(f"Marking challenge as done for {team_name}")
-                # TODO: add verify challenge exists in DB
-                challenges_done = get_attrib(team_name, "challenges-complete")
-                challenges_wip = get_attrib(team_name, "challenges-working")
-                challenge_name = request.form.get("challenge_finish")
-                if challenge_name in challenges_wip:
-                    challenges_wip.remove(challenge_name)
-                    challenges_done.append(challenge_name)
-                    edit_team(team_name, "challenges-complete", challenges_done)
-                    edit_team(team_name, "challenges-working", challenges_wip)
-                    points = int(get_chall(challenge_name)["points"])
-                    curr_points = int(get_attrib(team_name, "score"))
-                    new_pts = curr_points + points
-                    edit_team(team_name, "score", str(new_pts))
+                if has_challenge(request.form.get("challenge_finish")):
+                    challenges_done = get_attrib(team_name, "challenges-complete")
+                    challenges_wip = get_attrib(team_name, "challenges-working")
+                    challenge_name = request.form.get("challenge_finish")
+                    if challenge_name in challenges_wip:
+                        challenges_wip.remove(challenge_name)
+                        challenges_done.append(challenge_name)
+                        edit_team(team_name, "challenges-complete", challenges_done)
+                        edit_team(team_name, "challenges-working", challenges_wip)
+                        points = int(get_chall(challenge_name)["points"])
+                        curr_points = int(get_attrib(team_name, "score"))
+                        new_pts = curr_points + points
+                        edit_team(team_name, "score", str(new_pts))
             save_data()
             return redirect(f"/teams/{team_name}")
         except Exception as e:
