@@ -1,2 +1,7 @@
-<h3>{{ team_name }}: {{ points }}</h3>
-<progress id="{{ team_name }}" value="{{ points }}" max="{{ max_points }}"> {{ points }}% </progress>
+<div class="team_box">
+    <h3>{{ team_name }}: {{ points }}</h3>
+    <progress id="{{ team_name }}" value="{{ points }}" max="{{ max_points }}"> {{ points }}% </progress>
+    <br/>
+    <img src="{{ team_logo }}" alt="{{ team_name }}" width="100" height="100">
+</div>
+<br/><br/>

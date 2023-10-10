@@ -1,12 +1,12 @@
 - challenges-complete: null
   challenges-working: []
-  logo-path: ''
+  logo-path: 'temp_shield.png'
   name: Skiff
   players: []
   score: '0'
 - challenges-complete: []
   challenges-working: []
-  logo-path: ''
+  logo-path: 'temp_shield.png'
   name: Ireland
   players: []
   score: 0
@@ -15,14 +15,14 @@
   - Test Challenge 1
   - Test Challenge 3
   challenges-working: []
-  logo-path: ''
+  logo-path: 'temp_shield.png'
   name: Foster
   players:
   - Test
   score: '300'
 - challenges-complete: []
   challenges-working: []
-  logo-path: ''
+  logo-path: 'temp_shield.png'
   name: Joyce
   players: []
   score: 0

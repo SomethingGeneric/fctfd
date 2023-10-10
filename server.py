@@ -104,11 +104,16 @@ def scoreboard():
     sb_html = ""
 
     for team in teams:
+        if team["logo-path"] == '':
+            lp = "/static/error.png"
+        else:
+            lp = "/static/" + team["logo-path"]
         sb_html += render_template(
             "team_prog.html",
             team_name=team["name"],
             points=team["score"],
             max_points=max_points,
+            team_logo=lp,
         )
 
     return render_template(
