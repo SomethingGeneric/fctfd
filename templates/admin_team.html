@@ -1,5 +1,6 @@
 <h3>{{ team_name }}</h3>
 <p>Score: {{ score }}</p>
+<a href="/admin">Go back</a>
 <hr/>
 <p>Members:</p>
 <ul>
@@ -28,6 +29,12 @@
     <br/>
     <label for="member_remove">Remove member from team:</label>
     <input type="text" id="member_remove" name="member_remove">
+    <br/>
+    <label for="challenge_add">Add challenge:</label>
+    <input type="text" id="challenge_add" name="challenge_add">
+    <br/>
+    <label for="challenge_finish">Mark challenge as done:</label>
+    <input type="text" id="challenge_finish" name="challenge_finish">
     <br/>
     <button type="submit">Go!</button>
 </form>

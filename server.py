@@ -37,26 +37,43 @@ def save_data():
     with open("db/challenges.yaml", "w") as f:
         f.write(yaml.dump(challenges))
 
+
 def get_attrib(name, key):
     for team in teams:
-        if team['name'] == name:
+        if team["name"] == name:
             return team[key]
     return None
 
+
+def get_chall(name):
+    for chal in challenges:
+        if chal["name"] == name:
+            return chal
+    return None
+
+
 def has_team(fteam):
     for team in teams:
-        if team['name'] == fteam:
+        if team["name"] == fteam:
             return True
     return False
+
 
 def edit_team(name, key, value):
     global teams
 
     for team in teams:
-        if team['name'] == name:
+        if team["name"] == name:
             team[key] = value
             return True
-        
+
+    return False
+
+
+def has_challenge(name):
+    for challenge in challenges:
+        if challenge["name"] == name:
+            return True
     return False
 
 
@@ -161,24 +178,44 @@ def team(team_name):
         try:
             if not has_team(team_name):
                 return f"No such team: {team_name}", 500
-            if request.form.get("member_add") != '':
+            if request.form.get("member_add") != "":
                 print(f"Adding member to {team_name}")
-                old_players = get_attrib(team_name, 'players')
+                old_players = get_attrib(team_name, "players")
                 new_players = old_players
                 new_players.append(request.form.get("member_add"))
-                edit_team(team_name, 'players', new_players)
-            if request.form.get("member_remove") != '':
+                edit_team(team_name, "players", new_players)
+            if request.form.get("member_remove") != "":
                 print(f"Removing member from {team_name}")
-                old_players = get_attrib(team_name, 'players')
+                old_players = get_attrib(team_name, "players")
                 for p in old_players:
                     if p == request.form.get("member_remove"):
                         old_players.remove(p)
-                edit_team(team_name, 'players', old_players)
+                edit_team(team_name, "players", old_players)
+            if request.form.get("challenge_add") != "":
+                print(f"Adding challenge to {team_name}")
+                if has_challenge(request.form.get("challenge_add")):
+                    challenges_wip = get_attrib(team_name, "challenges-working")
+                    challenges_wip.append(request.form.get("challenge_add"))
+                    edit_team(team_name, "challenges-working", challenges_wip)
+            if request.form.get("challenge_finish") != "":
+                print(f"Marking challenge as done for {team_name}")
+                # TODO: add verify challenge exists in DB
+                challenges_done = get_attrib(team_name, "challenges-complete")
+                challenges_wip = get_attrib(team_name, "challenges-working")
+                challenge_name = request.form.get("challenge_finish")
+                if challenge_name in challenges_wip:
+                    challenges_wip.remove(challenge_name)
+                    challenges_done.append(challenge_name)
+                    edit_team(team_name, "challenges-complete", challenges_done)
+                    edit_team(team_name, "challenges-working", challenges_wip)
+                    points = int(get_chall(challenge_name)["points"])
+                    curr_points = int(get_attrib(team_name, "score"))
+                    new_pts = curr_points + points
+                    edit_team(team_name, "score", str(new_pts))
             save_data()
             return redirect(f"/teams/{team_name}")
         except Exception as e:
             return f"Error: {str(e)}"
-
 
 
 @app.route("/challenges/<challenge_name>", methods=["GET", "POST"])
