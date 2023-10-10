@@ -10,6 +10,20 @@ body {
     font-family: 'Harryman', serif;
 }
 
+.grid-container {
+    display: grid;
+    grid-template-columns: auto auto;
+    background-color: #705434;
+    padding: 10px;
+}
+  .grid-item {
+    background-color: #c2925d;
+    border: 1px solid #705434;
+    padding: 20px;
+    font-size: 30px;
+    text-align: center;
+}
+
 h1 {
     font-size: 3em;
 }

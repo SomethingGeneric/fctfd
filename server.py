@@ -101,20 +101,22 @@ def scoreboard():
                 "won.html", team_name=team["name"], players=team["players"]
             )
 
-    sb_html = ""
+    sb_html = "<div class=\"grid-container\">"
 
     for team in teams:
         if team["logo-path"] == '':
             lp = "/static/error.png"
         else:
             lp = "/static/" + team["logo-path"]
-        sb_html += render_template(
+        sb_html += "<div class=\"grid-item\">" + render_template(
             "team_prog.html",
             team_name=team["name"],
             points=team["score"],
             max_points=max_points,
             team_logo=lp,
-        )
+        ) + "</div>"
+
+    sb_html += "</div>"
 
     return render_template(
         "page.html",
