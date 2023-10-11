@@ -1,6 +1,7 @@
 - challenges-complete:
   - Test Challenge 1
-  challenges-working: []
+  challenges-working:
+  - Test Challenge 2
   logo-path: YellowGoldsteinShield.png
   name: Skiff
   players:
