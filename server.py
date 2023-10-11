@@ -111,7 +111,7 @@ def index():
     return render_template(
         "page.html",
         page_name="Home",
-        content="<p><a href='/scoreboard'>Scoreboard</a></p><p><a href='/admin'>Admin</a></p>",
+        content="<p><a href='/scoreboard'>Scoreboard</a></p><p><a href='/teams'>Teams</a></p><p><a href='/challenges'>Challenges</a></p><p><a href='/admin'>Admin</a></p>",
     )
 
 
@@ -178,6 +178,7 @@ def do_logout():
     r.set_cookie("sk-lol", "", expires=0)
     return r
 
+
 @app.route("/teams")
 def teams_list():
     team_list = "<ul>"
@@ -193,6 +194,7 @@ def teams_list():
         page_name="Team List",
         content=team_list,
     )
+
 
 @app.route("/teams/<team_name>", methods=["GET", "POST"])
 def team(team_name):
@@ -231,7 +233,7 @@ def team(team_name):
                     edit_team(team_name, "players", new_players)
                 if request.form.get("member_remove") != "":
                     target = request.form.get("member_remove").strip()
-                    print(f"Removing member \"{target}\" from {team_name}")
+                    print(f'Removing member "{target}" from {team_name}')
                     old_players = get_attrib(team_name, "players")
                     for p in old_players:
                         if target in p:
@@ -277,6 +279,7 @@ def team(team_name):
         except Exception as e:
             return f"Error: {str(e)}"
 
+
 @app.route("/challenges")
 def chall_list():
     chal_list = "<ul>"
@@ -292,6 +295,7 @@ def chall_list():
         page_name="Challenges List",
         content=chal_list,
     )
+
 
 @app.route("/challenges/<challenge_name>", methods=["GET", "POST"])
 def challenge(challenge_name):
