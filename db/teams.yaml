@@ -1,11 +1,11 @@
-- challenges-complete: []
+- challenges-complete:
+  - Test Challenge 1
   challenges-working: []
   logo-path: temp_shield.png
   name: Skiff
   players:
-  - 'Test Fool '
-  - Test foo 2
-  score: '0'
+  - Test fool 2
+  score: '100'
 - challenges-complete: []
   challenges-working: []
   logo-path: temp_shield.png

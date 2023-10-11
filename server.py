@@ -215,10 +215,11 @@ def team(team_name):
                     new_players.append(request.form.get("member_add"))
                     edit_team(team_name, "players", new_players)
                 if request.form.get("member_remove") != "":
-                    print(f"Removing member from {team_name}")
+                    target = request.form.get("member_remove").strip()
+                    print(f"Removing member \"{target}\" from {team_name}")
                     old_players = get_attrib(team_name, "players")
                     for p in old_players:
-                        if p == request.form.get("member_remove"):
+                        if target in p:
                             old_players.remove(p)
                     edit_team(team_name, "players", old_players)
                 if request.form.get("challenge_add") != "":
