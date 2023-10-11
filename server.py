@@ -69,6 +69,15 @@ def edit_team(name, key, value):
 
     return False
 
+def edit_chall(name, key, value):
+    global challenges
+
+    for challenge in challenges:
+        if challenge["name"] == name:
+            challenge[key] = value
+            return True
+
+    return False
 
 def has_challenge(name):
     for challenge in challenges:
@@ -108,7 +117,7 @@ def index():
 def scoreboard():
     max_points = 0
     for challenge in challenges:
-        max_points += challenge["points"]
+        max_points += int(challenge["points"])
 
     for team in teams:
         if int(team["score"]) == int(max_points):
@@ -270,7 +279,33 @@ def challenge(challenge_name):
             return redirect("/login")
     else:
         if request.cookies.get("sk-lol") == PASSWD:
-            print("doing things")
+            if request.form.get("points_set") != "":
+                edit_chall(challenge_name, "points", request.form.get("points_set"))
+            if request.form.get("description_set") != "":
+                edit_chall(
+                    challenge_name, "description", request.form.get("description_set")
+                )
+            if request.form.get("challenge_rename") != "":
+                old_challenge_data = get_chall(challenge_name)
+                challenges.remove(old_challenge_data)
+                new_challenge_data = {
+                    "name": request.form.get("challenge_rename"),
+                    "points": old_challenge_data["points"],
+                    "description": old_challenge_data["description"],
+                }
+                challenges.append(new_challenge_data)
+                
+                for team in teams:
+                    for challenge in team["challenges-working"]:
+                        if challenge == challenge_name:
+                            team["challenges-working"].remove(challenge_name)
+                            team["challenges-working"].append(request.form.get("challenge_rename"))
+                    for challenge in team["challenges-complete"]:
+                        if challenge == challenge_name:
+                            team["challenges-complete"].remove(challenge_name)
+                            team["challenges-complete"].append(request.form.get("challenge_rename"))
+                challenge_name = request.form.get("challenge_rename")
+            save_data()
         return redirect("/challenges/" + challenge_name)
 
 
