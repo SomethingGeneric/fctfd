@@ -77,6 +77,21 @@ def has_challenge(name):
     return False
 
 
+def dlist(data):
+    if data == "teams":
+        tn = []
+        for team in teams:
+            tn.append(team["name"])
+        return tn
+    elif data == "challenges":
+        cn = []
+        for challenge in challenges:
+            cn.append(challenge["name"])
+        return cn
+    else:
+        return None
+
+
 reload_data()
 
 
@@ -153,21 +168,6 @@ def do_logout():
     return r
 
 
-def dlist(data):
-    if data == "teams":
-        tn = []
-        for team in teams:
-            tn.append(team["name"])
-        return tn
-    elif data == "challenges":
-        cn = []
-        for challenge in challenges:
-            cn.append(challenge["name"])
-        return cn
-    else:
-        return "Invalid data type", 500
-
-
 @app.route("/teams/<team_name>", methods=["GET", "POST"])
 def team(team_name):
     if request.method == "GET":
@@ -194,55 +194,56 @@ def team(team_name):
         try:
             if not has_team(team_name):
                 return f"No such team: {team_name}", 500
-            if request.form.get("member_add") != "":
-                print(f"Adding member to {team_name}")
-                old_players = get_attrib(team_name, "players")
-                new_players = old_players
-                new_players.append(request.form.get("member_add"))
-                edit_team(team_name, "players", new_players)
-            if request.form.get("member_remove") != "":
-                print(f"Removing member from {team_name}")
-                old_players = get_attrib(team_name, "players")
-                for p in old_players:
-                    if p == request.form.get("member_remove"):
-                        old_players.remove(p)
-                edit_team(team_name, "players", old_players)
-            if request.form.get("challenge_add") != "":
-                print(f"Adding challenge to {team_name}")
-                if has_challenge(request.form.get("challenge_add")):
-                    challenges_wip = get_attrib(team_name, "challenges-working")
-                    challenges_wip.append(request.form.get("challenge_add"))
-                    edit_team(team_name, "challenges-working", challenges_wip)
-            if request.form.get("challenge_finish") != "":
-                print(f"Marking challenge as done for {team_name}")
-                if has_challenge(request.form.get("challenge_finish")):
+            if request.cookies.get("sk-lol") == PASSWD:
+                if request.form.get("member_add") != "":
+                    print(f"Adding member to {team_name}")
+                    old_players = get_attrib(team_name, "players")
+                    new_players = old_players
+                    new_players.append(request.form.get("member_add"))
+                    edit_team(team_name, "players", new_players)
+                if request.form.get("member_remove") != "":
+                    print(f"Removing member from {team_name}")
+                    old_players = get_attrib(team_name, "players")
+                    for p in old_players:
+                        if p == request.form.get("member_remove"):
+                            old_players.remove(p)
+                    edit_team(team_name, "players", old_players)
+                if request.form.get("challenge_add") != "":
+                    print(f"Adding challenge to {team_name}")
+                    if has_challenge(request.form.get("challenge_add")):
+                        challenges_wip = get_attrib(team_name, "challenges-working")
+                        challenges_wip.append(request.form.get("challenge_add"))
+                        edit_team(team_name, "challenges-working", challenges_wip)
+                if request.form.get("challenge_finish") != "":
+                    print(f"Marking challenge as done for {team_name}")
+                    if has_challenge(request.form.get("challenge_finish")):
+                        challenges_done = get_attrib(team_name, "challenges-complete")
+                        challenges_wip = get_attrib(team_name, "challenges-working")
+                        challenge_name = request.form.get("challenge_finish")
+                        if challenge_name in challenges_wip:
+                            challenges_wip.remove(challenge_name)
+                            challenges_done.append(challenge_name)
+                            edit_team(team_name, "challenges-complete", challenges_done)
+                            edit_team(team_name, "challenges-working", challenges_wip)
+                            points = int(get_chall(challenge_name)["points"])
+                            curr_points = int(get_attrib(team_name, "score"))
+                            new_pts = curr_points + points
+                            edit_team(team_name, "score", str(new_pts))
+                if request.form.get("challenge_remove") != "":
                     challenges_done = get_attrib(team_name, "challenges-complete")
                     challenges_wip = get_attrib(team_name, "challenges-working")
-                    challenge_name = request.form.get("challenge_finish")
+                    challenge_name = request.form.get("challenge_remove")
                     if challenge_name in challenges_wip:
                         challenges_wip.remove(challenge_name)
-                        challenges_done.append(challenge_name)
-                        edit_team(team_name, "challenges-complete", challenges_done)
                         edit_team(team_name, "challenges-working", challenges_wip)
+                    if challenge_name in challenges_done:
+                        challenges_done.remove(challenge_name)
+                        edit_team(team_name, "challenges-complete", challenges_done)
                         points = int(get_chall(challenge_name)["points"])
                         curr_points = int(get_attrib(team_name, "score"))
-                        new_pts = curr_points + points
+                        new_pts = curr_points - points
                         edit_team(team_name, "score", str(new_pts))
-            if request.form.get("challenge_remove") != "":
-                challenges_done = get_attrib(team_name, "challenges-complete")
-                challenges_wip = get_attrib(team_name, "challenges-working")
-                challenge_name = request.form.get("challenge_remove")
-                if challenge_name in challenges_wip:
-                    challenges_wip.remove(challenge_name)
-                    edit_team(team_name, "challenges-working", challenges_wip)
-                if challenge_name in challenges_done:
-                    challenges_done.remove(challenge_name)
-                    edit_team(team_name, "challenges-complete", challenges_done)
-                    points = int(get_chall(challenge_name)["points"])
-                    curr_points = int(get_attrib(team_name, "score"))
-                    new_pts = curr_points - points
-                    edit_team(team_name, "score", str(new_pts))
-            save_data()
+                save_data()
             return redirect(f"/teams/{team_name}")
         except Exception as e:
             return f"Error: {str(e)}"
@@ -268,7 +269,9 @@ def challenge(challenge_name):
         else:
             return redirect("/login")
     else:
-        return "WIP"
+        if request.cookies.get("sk-lol") == PASSWD:
+            print("doing things")
+        return redirect("/challenges/" + challenge_name)
 
 
 @app.route("/admin")

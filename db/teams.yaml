@@ -2,7 +2,9 @@
   challenges-working: []
   logo-path: temp_shield.png
   name: Skiff
-  players: []
+  players:
+  - 'Test Fool '
+  - Test foo 2
   score: '0'
 - challenges-complete: []
   challenges-working: []
@@ -13,8 +15,7 @@
 - challenges-complete:
   - Test Challenge 1
   - Test Challenge 3
-  challenges-working:
-  - Test Challenge 4
+  challenges-working: []
   logo-path: temp_shield.png
   name: Foster
   players:

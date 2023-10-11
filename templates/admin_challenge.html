@@ -1,2 +1,13 @@
 <p>Points: {{ points }}</p>
 <p>Description: {{ description }}</p>
+<form method="POST">
+    <label for="points_set">Set points earned on completion:</label>
+    <input type="text" id="points_set" name="points_set">
+    <br/>
+    <label for="description_set">Set description:</label>
+    <input type="text" id="description_set" name="description_set">
+    <br/>
+    <label for="challenge_rename">Rename challenge:</label>
+    <input type="text" id="challenge_rename" name="challenge_rename">
+    <button type="submit">Go!</button>
+</form>
