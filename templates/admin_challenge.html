@@ -1,5 +1,5 @@
 <p>Points: {{ points }}</p>
-<p>Description: {{ description }}</p>
+<p>Description: {{ description | safe }}</p>
 {% if auth %}
 <form method="POST">
     <label for="points_set">Set points earned on completion:</label>
