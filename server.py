@@ -69,6 +69,7 @@ def edit_team(name, key, value):
 
     return False
 
+
 def edit_chall(name, key, value):
     global challenges
 
@@ -78,6 +79,7 @@ def edit_chall(name, key, value):
             return True
 
     return False
+
 
 def has_challenge(name):
     for challenge in challenges:
@@ -180,25 +182,27 @@ def do_logout():
 @app.route("/teams/<team_name>", methods=["GET", "POST"])
 def team(team_name):
     if request.method == "GET":
+        auth = False
         if request.cookies.get("sk-lol") == PASSWD:
-            team_name = urllib.parse.unquote(team_name)
-            for team in teams:
-                if team["name"] == team_name:
-                    return render_template(
-                        "page.html",
-                        page_name=f"Details - {team_name}",
-                        content=render_template(
-                            "admin_team.html",
-                            team_name=team_name,
-                            score=team["score"],
-                            members=team["players"],
-                            challenges_done=team["challenges-complete"],
-                            challenges_working=team["challenges-working"],
-                        ),
-                    )
-            return "{}", 404
-        else:
-            return redirect("/login")
+            auth = True
+        team_name = urllib.parse.unquote(team_name)
+        for team in teams:
+            if team["name"] == team_name:
+                return render_template(
+                    "page.html",
+                    page_name=f"Details - {team_name}",
+                    content=render_template(
+                        "admin_team.html",
+                        team_name=team_name,
+                        score=team["score"],
+                        members=team["players"],
+                        challenges_done=team["challenges-complete"],
+                        challenges_working=team["challenges-working"],
+                        auth=auth,
+                    ),
+                )
+
+        return "{}", 404
     else:
         try:
             if not has_team(team_name):
@@ -261,22 +265,23 @@ def team(team_name):
 @app.route("/challenges/<challenge_name>", methods=["GET", "POST"])
 def challenge(challenge_name):
     if request.method == "GET":
+        auth = False
         if request.cookies.get("sk-lol") == PASSWD:
-            challenge_name = urllib.parse.unquote(challenge_name)
-            for challenge in challenges:
-                if challenge["name"] == challenge_name:
-                    return render_template(
-                        "page.html",
-                        page_name=f"Challenge Details - {challenge_name}",
-                        content=render_template(
-                            "admin_challenge.html",
-                            points=challenge["points"],
-                            description=challenge["description"],
-                        ),
-                    )
-            return f"Could not find '{challenge_name}'", 404
-        else:
-            return redirect("/login")
+            auth = True
+        challenge_name = urllib.parse.unquote(challenge_name)
+        for challenge in challenges:
+            if challenge["name"] == challenge_name:
+                return render_template(
+                    "page.html",
+                    page_name=f"Challenge Details - {challenge_name}",
+                    content=render_template(
+                        "admin_challenge.html",
+                        points=challenge["points"],
+                        description=challenge["description"],
+                        auth=auth,
+                    ),
+                )
+        return f"Could not find '{challenge_name}'", 404
     else:
         if request.cookies.get("sk-lol") == PASSWD:
             if request.form.get("points_set") != "":
@@ -294,16 +299,20 @@ def challenge(challenge_name):
                     "description": old_challenge_data["description"],
                 }
                 challenges.append(new_challenge_data)
-                
+
                 for team in teams:
                     for challenge in team["challenges-working"]:
                         if challenge == challenge_name:
                             team["challenges-working"].remove(challenge_name)
-                            team["challenges-working"].append(request.form.get("challenge_rename"))
+                            team["challenges-working"].append(
+                                request.form.get("challenge_rename")
+                            )
                     for challenge in team["challenges-complete"]:
                         if challenge == challenge_name:
                             team["challenges-complete"].remove(challenge_name)
-                            team["challenges-complete"].append(request.form.get("challenge_rename"))
+                            team["challenges-complete"].append(
+                                request.form.get("challenge_rename")
+                            )
                 challenge_name = request.form.get("challenge_rename")
             save_data()
         return redirect("/challenges/" + challenge_name)

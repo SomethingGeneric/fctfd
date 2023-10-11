@@ -1,6 +1,8 @@
 <h3>{{ team_name }}</h3>
 <p>Score: {{ score }}</p>
+{% if auth %}
 <a href="/admin">Go back</a>
+{% endif %}
 <hr/>
 {% if members %}
     <p>Members:</p>
@@ -29,6 +31,7 @@
     </ul>
     <hr/>
 {% endif %}
+{% if auth %}
 <form method="POST">
     <label for="member_add">Add member to team:</label>
     <input type="text" id="member_add" name="member_add">
@@ -47,3 +50,4 @@
     <br/>
     <button type="submit">Go!</button>
 </form>
+{% endif %}

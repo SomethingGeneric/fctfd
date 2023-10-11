@@ -1,5 +1,6 @@
 <p>Points: {{ points }}</p>
 <p>Description: {{ description }}</p>
+{% if auth %}
 <form method="POST">
     <label for="points_set">Set points earned on completion:</label>
     <input type="text" id="points_set" name="points_set">
@@ -11,3 +12,4 @@
     <input type="text" id="challenge_rename" name="challenge_rename">
     <button type="submit">Go!</button>
 </form>
+{% endif %}
