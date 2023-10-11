@@ -124,7 +124,7 @@ def scoreboard():
     for team in teams:
         if int(team["score"]) == int(max_points):
             return render_template(
-                "won.html", team_name=team["name"], players=team["players"]
+                "won.html", team_name=team["name"], players=team["players"], team=team, team_logo="/static/"+team["logo-path"]
             )
 
     sb_html = '<div class="grid-container">'

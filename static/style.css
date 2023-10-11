@@ -39,3 +39,15 @@ h3 {
 p {
     font-size: 2.2em;
 }
+
+label {
+    font-size: 2.2em;
+}
+
+a {
+    font-size: 2.2em;
+}
+
+p a {
+    font-size: 1em;
+}
