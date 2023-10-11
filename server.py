@@ -220,6 +220,7 @@ def team(team_name):
                         challenges_done=team["challenges-complete"],
                         challenges_working=team["challenges-working"],
                         auth=auth,
+                        team=team,
                     ),
                 )
 
