@@ -1,14 +1,14 @@
 - challenges-complete:
   - Test Challenge 1
   challenges-working: []
-  logo-path: temp_shield.png
+  logo-path: YellowGoldsteinShield.png
   name: Skiff
   players:
   - Test fool 2
   score: '100'
 - challenges-complete: []
   challenges-working: []
-  logo-path: temp_shield.png
+  logo-path: BlueLetorunoShield.png
   name: Ireland
   players: []
   score: 0
@@ -16,14 +16,14 @@
   - Test Challenge 1
   - Test Challenge 3
   challenges-working: []
-  logo-path: temp_shield.png
+  logo-path: RedGinterShiled.png
   name: Foster
   players:
   - Test
   score: '200'
 - challenges-complete: []
   challenges-working: []
-  logo-path: temp_shield.png
+  logo-path: GreenEastmanShield.png
   name: Joyce
   players: []
   score: 0
