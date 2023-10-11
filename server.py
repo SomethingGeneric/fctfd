@@ -282,14 +282,14 @@ def team(team_name):
 
 @app.route("/challenges")
 def chall_list():
-    chal_list = "<ul>"
+    chal_list = "<ol>"
     for chal in challenges:
         chal_list += (
             f"<li><p><a href=/challenges/{urllib.parse.quote(chal['name'])}>"
             + chal["name"]
             + "</a></p></li>"
         )
-    chal_list += "</ul>"
+    chal_list += "</ol>"
     return render_template(
         "page.html",
         page_name="Challenges List",
@@ -300,6 +300,8 @@ def chall_list():
 @app.route("/challenges/<challenge_name>", methods=["GET", "POST"])
 def challenge(challenge_name):
     if request.method == "GET":
+        # if challenge_name == "Scoreboard Code Flag":
+        #     print("Hi there CTF players! The flag is: Alohamora :)")
         auth = False
         if request.cookies.get("sk-lol") == PASSWD:
             auth = True

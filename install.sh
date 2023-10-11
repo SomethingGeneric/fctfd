@@ -16,4 +16,8 @@ cp hpscoreboard.service /etc/systemd/system/hpscoreboard.service
 systemctl daemon-reload
 systemctl enable --now hpscoreboard
 
+if [[ ! -d db ]]; then
+    ./venv/bin/python3 create_data.py
+fi
+
 echo "all done."

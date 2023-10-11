@@ -9,4 +9,8 @@ if [[ ! -f venv/.done ]]; then
     touch venv/.done
 fi
 
+if [[ ! -d db ]]; then
+    ./venv/bin/python3 create_data.py
+fi
+
 ./venv/bin/python3 server.py
