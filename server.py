@@ -178,6 +178,21 @@ def do_logout():
     r.set_cookie("sk-lol", "", expires=0)
     return r
 
+@app.route("/teams")
+def teams_list():
+    team_list = "<ul>"
+    for team in teams:
+        team_list += (
+            f"<li><p><a href=/teams/{urllib.parse.quote(team['name'])}>"
+            + team["name"]
+            + "</a></p></li>"
+        )
+    team_list += "</ul>"
+    return render_template(
+        "page.html",
+        page_name="Team List",
+        content=team_list,
+    )
 
 @app.route("/teams/<team_name>", methods=["GET", "POST"])
 def team(team_name):
@@ -262,6 +277,21 @@ def team(team_name):
         except Exception as e:
             return f"Error: {str(e)}"
 
+@app.route("/challenges")
+def chall_list():
+    chal_list = "<ul>"
+    for chal in challenges:
+        chal_list += (
+            f"<li><p><a href=/challenges/{urllib.parse.quote(chal['name'])}>"
+            + chal["name"]
+            + "</a></p></li>"
+        )
+    chal_list += "</ul>"
+    return render_template(
+        "page.html",
+        page_name="Challenges List",
+        content=chal_list,
+    )
 
 @app.route("/challenges/<challenge_name>", methods=["GET", "POST"])
 def challenge(challenge_name):
