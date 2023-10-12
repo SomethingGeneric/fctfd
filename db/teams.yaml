@@ -1,24 +1,80 @@
-- challenges-complete: []
+- challenges-complete:
+  - Audio Challenge
+  - Caesar Cipher
+  - Password Testing
+  - CyberTech Website
+  - Steal Something
+  - Rail Cipher
+  - Phishing Email
+  - Tech Journal OSINT
+  - Library OSINT
   challenges-working: []
   logo-path: YellowGoldsteinShield.png
   name: Skiff
-  players: []
-  score: 0
-- challenges-complete: []
+  players:
+  - Avery
+  - Mike
+  score: '900'
+- challenges-complete:
+  - jeastman osint
+  - CCSC Advisor OSINT
+  - WiCyS OSINT
+  - Library OSINT
+  - Password Testing
+  - Caesar Cipher
+  - Phishing Email
+  - Steal Something
+  - CyberTech Website
+  - Rail Cipher
+  - Hackme
+  - Audio Challenge
   challenges-working: []
   logo-path: BlueLetorunoShield.png
   name: Ireland
-  players: []
-  score: 0
-- challenges-complete: []
+  players:
+  - Lily
+  - Morgan
+  score: '1200'
+- challenges-complete:
+  - jeastman osint
+  - WiCyS OSINT
+  - Password Testing
+  - Caesar Cipher
+  - Phishing Email
+  - Rail Cipher
+  - Audio Challenge
+  - Steal Something
+  - Library OSINT
+  - CyberTech Website
+  - Password Game
+  - CCSC Advisor OSINT
+  - Tech Journal OSINT
+  - Hackme
   challenges-working: []
   logo-path: RedGinterShiled.png
   name: Foster
-  players: []
-  score: 0
-- challenges-complete: []
+  players:
+  - Sierra
+  - Natalie
+  - Adra
+  score: '1400'
+- challenges-complete:
+  - Library OSINT
+  - Steal Something
+  - Rail Cipher
+  - CyberTech Website
+  - Phishing Email
+  - Caesar Cipher
+  - Audio Challenge
+  - Hackme
+  - WiCyS OSINT
+  - CCSC Advisor OSINT
+  - jeastman osint
   challenges-working: []
   logo-path: GreenEastmanShield.png
   name: Joyce
-  players: []
-  score: 0
+  players:
+  - Sav
+  - Joe
+  - Chris
+  score: '1100'

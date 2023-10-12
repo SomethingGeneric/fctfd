@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-git pull
+# git pull
 
 [[ -f /etc/systemd/system/hpscoreboard.service ]] && systemctl disable --now hpscoreboard && rm /etc/systemd/system/hpscoreboard.service
 
