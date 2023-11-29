@@ -41,13 +41,31 @@
     <input type="text" id="member_remove" name="member_remove">
     <br/>
     <label for="challenge_add">Add challenge:</label>
-    <input type="text" id="challenge_add" name="challenge_add">
+    <!-- <input type="text" id="challenge_add" name="challenge_add"> -->
+    <select name="challenge_add" id="challenge_add">
+        <option value="none">(none)</option>
+        {% for challenge in challenges %}
+            <option value="{{ challenge['name'] }}">{{ challenge['name'] }}</option>
+        {% endfor %}
+    </select>
     <br/>
     <label for="challenge_finish">Mark challenge as done:</label>
-    <input type="text" id="challenge_finish" name="challenge_finish">
+    <!-- <input type="text" id="challenge_finish" name="challenge_finish"> -->
+    <select name="challenge_finish" id="challenge_finish">
+        <option value="none">(none)</option>
+        {% for challenge in challenges %}
+            <option value="{{ challenge['name'] }}">{{ challenge['name'] }}</option>
+        {% endfor %}
+    </select>
     <br/>
     <label for="challenge_remove">Remove challenge:</label>
-    <input type="text" id="challenge_remove" name="challenge_remove">
+    <!-- <input type="text" id="challenge_remove" name="challenge_remove"> -->
+    <select name="challenge_remove" id="challenge_remove">
+        <option value="none">(none)</option>
+        {% for challenge in challenges %}
+            <option value="{{ challenge['name'] }}">{{ challenge['name'] }}</option>
+        {% endfor %}
+    </select>
     <br/>
     <button type="submit">Go!</button>
 </form>

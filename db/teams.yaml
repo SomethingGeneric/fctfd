@@ -1,55 +1,28 @@
 - challenges-complete:
-  - Audio Challenge
-  - Caesar Cipher
-  - Password Testing
-  - CyberTech Website
-  - Steal Something
-  - Rail Cipher
-  - Phishing Email
-  - Tech Journal OSINT
-  - Library OSINT
+  - Test 1
+  - Test 2
   challenges-working: []
   logo-path: icon-glitch.png
   name: Team 1
   players:
   - Avery
   - Mike
-  score: '900'
+  score: '200'
 - challenges-complete:
-  - jeastman osint
-  - CCSC Advisor OSINT
-  - WiCyS OSINT
-  - Library OSINT
-  - Password Testing
-  - Caesar Cipher
-  - Phishing Email
-  - Steal Something
-  - CyberTech Website
-  - Rail Cipher
-  - Hackme
-  - Audio Challenge
+  - Test 1
+  - Test 2
+  - Test 3
   challenges-working: []
   logo-path: icon-hacker.png
   name: Team 2
   players:
   - Lily
   - Morgan
-  score: '1200'
+  score: '300'
 - challenges-complete:
-  - jeastman osint
-  - WiCyS OSINT
-  - Password Testing
-  - Caesar Cipher
-  - Phishing Email
-  - Rail Cipher
-  - Audio Challenge
-  - Steal Something
-  - Library OSINT
-  - CyberTech Website
-  - Password Game
-  - CCSC Advisor OSINT
-  - Tech Journal OSINT
-  - Hackme
+  - Test 1
+  - Test 2
+  - Test 3
   challenges-working: []
   logo-path: icon-robot-blue.png
   name: Team 3
@@ -57,19 +30,9 @@
   - Sierra
   - Natalie
   - Adra
-  score: '1400'
+  score: '300'
 - challenges-complete:
-  - Library OSINT
-  - Steal Something
-  - Rail Cipher
-  - CyberTech Website
-  - Phishing Email
-  - Caesar Cipher
-  - Audio Challenge
-  - Hackme
-  - WiCyS OSINT
-  - CCSC Advisor OSINT
-  - jeastman osint
+  - Test 1
   challenges-working: []
   logo-path: icon-virus.png
   name: Team 4
@@ -77,4 +40,4 @@
   - Sav
   - Joe
   - Chris
-  score: '1100'
+  score: '100'

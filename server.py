@@ -219,6 +219,7 @@ def team(team_name):
                         members=team["players"],
                         challenges_done=team["challenges-complete"],
                         challenges_working=team["challenges-working"],
+                        challenges=challenges,
                         auth=auth,
                         team=team,
                     ),
@@ -244,13 +245,13 @@ def team(team_name):
                         if target in p:
                             old_players.remove(p)
                     edit_team(team_name, "players", old_players)
-                if request.form.get("challenge_add") != "":
+                if request.form.get("challenge_add") != "none":
                     print(f"Adding challenge to {team_name}")
                     if has_challenge(request.form.get("challenge_add")):
                         challenges_wip = get_attrib(team_name, "challenges-working")
                         challenges_wip.append(request.form.get("challenge_add"))
                         edit_team(team_name, "challenges-working", challenges_wip)
-                if request.form.get("challenge_finish") != "":
+                if request.form.get("challenge_finish") != "none":
                     print(f"Marking challenge as done for {team_name}")
                     if has_challenge(request.form.get("challenge_finish")):
                         challenges_done = get_attrib(team_name, "challenges-complete")
@@ -265,7 +266,7 @@ def team(team_name):
                             curr_points = int(get_attrib(team_name, "score"))
                             new_pts = curr_points + points
                             edit_team(team_name, "score", str(new_pts))
-                if request.form.get("challenge_remove") != "":
+                if request.form.get("challenge_remove") != "none":
                     challenges_done = get_attrib(team_name, "challenges-complete")
                     challenges_wip = get_attrib(team_name, "challenges-working")
                     challenge_name = request.form.get("challenge_remove")
