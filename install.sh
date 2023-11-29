@@ -2,19 +2,19 @@
 
 # git pull
 
-[[ -f /etc/systemd/system/hpscoreboard.service ]] && systemctl disable --now hpscoreboard && rm /etc/systemd/system/hpscoreboard.service
+[[ -f /etc/systemd/system/ctfscoreboard.service ]] && systemctl disable --now ctfscoreboard && rm /etc/systemd/system/ctfscoreboard.service
 
 [[ ! -d venv ]] && python3 -m venv venv
 ./venv/bin/pip install -r requirements.txt
 
 my_pwd=$(pwd)
 
-cp hpscoreboard.service.ex hpscoreboard.service
-sed -i "s/MYPWD/${my_pwd//\//\\/}/g" hpscoreboard.service
+cp ctfscoreboard.service.ex ctfscoreboard.service
+sed -i "s/MYPWD/${my_pwd//\//\\/}/g" ctfscoreboard.service
 
-cp hpscoreboard.service /etc/systemd/system/hpscoreboard.service
+cp ctfscoreboard.service /etc/systemd/system/ctfscoreboard.service
 systemctl daemon-reload
-systemctl enable --now hpscoreboard
+systemctl enable --now ctfscoreboard
 
 if [[ ! -d db ]]; then
     ./venv/bin/python3 create_data.py

@@ -1,6 +1,6 @@
 <html>
 <head>
-    <title>HP Scoreboard - {{ page_name }}</title>
+    <title>CTF Scoreboard - {{ page_name }}</title>
     <link rel="stylesheet" href="/static/style.css">
     <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
     {% if auto_refresh %}
@@ -9,7 +9,7 @@
 </head>
 <body>
     {% if not embed %}
-        <h1>HP Scoreboard</h1>
+        <h1>CTF Scoreboard</h1>
         <h2>{{ page_name }}</h2>
     {% endif %}
     {{ content | safe }}

@@ -1,5 +1,5 @@
 [Unit]
-Description=HP Scoreboard Service
+Description=CTF Scoreboard Service
 After=network.target
 
 [Service]
