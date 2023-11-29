@@ -5,7 +5,13 @@ import urllib.parse
 import os
 
 app = Flask(__name__)
-PASSWD = "chauncey12345"
+
+if not os.path.exists("db/admin.pass"):
+    print("No admin.pass file found")
+    exit(1)
+else:
+    with open("db/admin.pass", "r") as f:
+        PASSWD = f.read().strip()
 
 teams = []
 challenges = []
