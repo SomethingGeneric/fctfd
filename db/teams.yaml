@@ -23,6 +23,7 @@
   - Test 1
   - Test 2
   - Test 3
+  - Test 5
   challenges-working: []
   logo-path: icon-robot-blue.png
   name: Team 3
@@ -30,7 +31,7 @@
   - Sierra
   - Natalie
   - Adra
-  score: '300'
+  score: '400'
 - challenges-complete:
   - Test 1
   challenges-working: []

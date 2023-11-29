@@ -366,6 +366,36 @@ def challenge(challenge_name):
             save_data()
         return redirect("/challenges/" + challenge_name)
 
+@app.route("/challenges/new", methods=["GET", "POST"])
+def new_challenge():
+    if request.method == 'GET':
+        if request.cookies.get("sk-lol") == PASSWD:
+            return render_template(
+                "page.html",
+                page_name="New Challenge",
+                content=render_template("new_challenge.html"),
+            )
+        else:
+            return redirect(url_for("login"))
+    else:
+        if request.cookies.get("sk-lol") == PASSWD:
+            challenge_name = request.form.get("challenge_name")
+            challenge_points = request.form.get("challenge_points")
+            challenge_description = request.form.get("challenge_description")
+            if challenge_name == "" or challenge_points == "" or challenge_description == "":
+                return "Error: Missing data"
+            if has_challenge(challenge_name):
+                return "Error: Challenge already exists"
+            new_challenge_data = {
+                "name": challenge_name,
+                "points": challenge_points,
+                "description": challenge_description,
+            }
+            challenges.append(new_challenge_data)
+            save_data()
+            return redirect("/challenges/" + challenge_name)
+        else:
+            return redirect(url_for("login"))
 
 @app.route("/admin")
 def admin():
