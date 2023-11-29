@@ -366,9 +366,10 @@ def challenge(challenge_name):
             save_data()
         return redirect("/challenges/" + challenge_name)
 
+
 @app.route("/challenges/new", methods=["GET", "POST"])
 def new_challenge():
-    if request.method == 'GET':
+    if request.method == "GET":
         if request.cookies.get("sk-lol") == PASSWD:
             return render_template(
                 "page.html",
@@ -382,7 +383,11 @@ def new_challenge():
             challenge_name = request.form.get("challenge_name")
             challenge_points = request.form.get("challenge_points")
             challenge_description = request.form.get("challenge_description")
-            if challenge_name == "" or challenge_points == "" or challenge_description == "":
+            if (
+                challenge_name == ""
+                or challenge_points == ""
+                or challenge_description == ""
+            ):
                 return "Error: Missing data"
             if has_challenge(challenge_name):
                 return "Error: Challenge already exists"
@@ -396,6 +401,7 @@ def new_challenge():
             return redirect("/challenges/" + challenge_name)
         else:
             return redirect(url_for("login"))
+
 
 @app.route("/admin")
 def admin():
@@ -435,12 +441,12 @@ def hackme():
         )
     if request.method == "POST":
         tried = str(request.form.get("phrase")).strip()
-        #print("Got: " + tried + " for hackme")
+        # print("Got: " + tried + " for hackme")
         if tried == "aparecium":
-            #print("They got it!")
+            # print("They got it!")
             return render_template("page.html", page_name="Huzzah you got it!")
         else:
-            #print("Goober")
+            # print("Goober")
             return redirect("/hackme")
 
 
