@@ -312,8 +312,6 @@ def chall_list():
 @app.route("/challenges/<challenge_name>", methods=["GET", "POST"])
 def challenge(challenge_name):
     if request.method == "GET":
-        # if challenge_name == "Scoreboard Code Flag":
-        #     print("Hi there CTF players! The flag is: Alohamora :)")
         auth = False
         if request.cookies.get("sk-lol") == PASSWD:
             auth = True
@@ -431,24 +429,6 @@ def admin():
         )
     else:
         return redirect(url_for("login"))
-
-
-@app.route("/hackme", methods=["GET", "POST"])
-def hackme():
-    if request.method == "GET":
-        return render_template(
-            "page.html", page_name="Hack me!", content=render_template("hackme.html")
-        )
-    if request.method == "POST":
-        tried = str(request.form.get("phrase")).strip()
-        # print("Got: " + tried + " for hackme")
-        if tried == "aparecium":
-            # print("They got it!")
-            return render_template("page.html", page_name="Huzzah you got it!")
-        else:
-            # print("Goober")
-            return redirect("/hackme")
-
 
 if __name__ == "__main__":
     app.run(debug=True, host="0.0.0.0")
