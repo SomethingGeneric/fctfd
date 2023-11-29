@@ -1,24 +1,18 @@
-@font-face {
-    font-family: 'Harryman';
-    src: url('/static/harryp.ttf');
-}
-
 body {
-    background: #9e7649;
+    background: #c4df9b;
     ffefwf-color: #2c2f36;
-    color: black;
-    font-family: 'Harryman', serif;
+    color: #2a436b;
 }
 
 .grid-container {
     display: grid;
     grid-template-columns: auto auto;
-    background-color: #705434;
+    background-color: #82c298;
     padding: 10px;
 }
   .grid-item {
-    background-color: #c2925d;
-    border: 1px solid #705434;
+    background-color: white;
+    border: 1px solid #82c298;
     padding: 20px;
     font-size: 30px;
     text-align: center;
