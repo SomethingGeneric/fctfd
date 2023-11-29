@@ -9,8 +9,8 @@
   - Tech Journal OSINT
   - Library OSINT
   challenges-working: []
-  logo-path: YellowGoldsteinShield.png
-  name: Skiff
+  logo-path: icon-glitch.png
+  name: Team 1
   players:
   - Avery
   - Mike
@@ -29,8 +29,8 @@
   - Hackme
   - Audio Challenge
   challenges-working: []
-  logo-path: BlueLetorunoShield.png
-  name: Ireland
+  logo-path: icon-hacker.png
+  name: Team 2
   players:
   - Lily
   - Morgan
@@ -51,8 +51,8 @@
   - Tech Journal OSINT
   - Hackme
   challenges-working: []
-  logo-path: RedGinterShiled.png
-  name: Foster
+  logo-path: icon-robot-blue.png
+  name: Team 3
   players:
   - Sierra
   - Natalie
@@ -71,8 +71,8 @@
   - CCSC Advisor OSINT
   - jeastman osint
   challenges-working: []
-  logo-path: GreenEastmanShield.png
-  name: Joyce
+  logo-path: icon-virus.png
+  name: Team 4
   players:
   - Sav
   - Joe
