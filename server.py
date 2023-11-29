@@ -265,13 +265,13 @@ def team(team_name):
                         challenge_name = request.form.get("challenge_finish")
                         if challenge_name in challenges_wip:
                             challenges_wip.remove(challenge_name)
-                            challenges_done.append(challenge_name)
-                            edit_team(team_name, "challenges-complete", challenges_done)
-                            edit_team(team_name, "challenges-working", challenges_wip)
-                            points = int(get_chall(challenge_name)["points"])
-                            curr_points = int(get_attrib(team_name, "score"))
-                            new_pts = curr_points + points
-                            edit_team(team_name, "score", str(new_pts))
+                        challenges_done.append(challenge_name)
+                        edit_team(team_name, "challenges-complete", challenges_done)
+                        edit_team(team_name, "challenges-working", challenges_wip)
+                        points = int(get_chall(challenge_name)["points"])
+                        curr_points = int(get_attrib(team_name, "score"))
+                        new_pts = curr_points + points
+                        edit_team(team_name, "score", str(new_pts))
                 if request.form.get("challenge_remove") != "none":
                     challenges_done = get_attrib(team_name, "challenges-complete")
                     challenges_wip = get_attrib(team_name, "challenges-working")

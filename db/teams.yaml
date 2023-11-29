@@ -1,13 +1,15 @@
 - challenges-complete:
   - Test 1
   - Test 2
+  - Test 3
+  - Test 5
   challenges-working: []
   logo-path: icon-glitch.png
   name: Team 1
   players:
   - Avery
   - Mike
-  score: '200'
+  score: '400'
 - challenges-complete:
   - Test 1
   - Test 2
