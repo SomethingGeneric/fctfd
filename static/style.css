@@ -11,7 +11,8 @@ body {
     background-color: #82c298;
     padding: 10px;
 }
-  .grid-item {
+
+.grid-item {
     background-color: white;
     border: 1px solid #82c298;
     padding: 20px;
@@ -45,4 +46,12 @@ a {
 
 p a {
     font-size: 1em;
+}
+
+footer {
+    font-size: 0.5em;
+    text-align: center;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
 }

@@ -124,6 +124,8 @@ def index():
 @app.route("/scoreboard")
 def scoreboard():
     max_points = 0
+    big_sb = True if len(teams) > 4 else False
+
     for challenge in challenges:
         max_points += int(challenge["points"])
 
@@ -137,25 +139,34 @@ def scoreboard():
                 team_logo="/static/" + team["logo-path"],
             )
 
-    sb_html = '<div class="grid-container">'
+    sb_html = '<div class="grid-container">' if big_sb else "<ul><h2>Scoreboard</h2>"
 
     for team in teams:
         if team["logo-path"] == "":
             lp = "/static/error.png"
         else:
             lp = "/static/" + team["logo-path"]
-        sb_html += (
-            '<div class="grid-item">'
-            + render_template(
-                "team_prog.html",
-                team=team,
-                max_points=max_points,
-                team_logo=lp,
-            )
-            + "</div>"
-        )
 
-    sb_html += "</div>"
+        if big_sb:
+            sb_html += (
+                '<div class="grid-item">'
+                + render_template(
+                    "team_prog_big.html",
+                    team=team,
+                    max_points=max_points,
+                    team_logo=lp,
+                )
+                + "</div>"
+            )
+        else:
+            sb_html += (
+                render_template(
+                    "team_prog_small.html",
+                    team=team,
+                )
+            )
+
+    sb_html += "</div>" if big_sb else "</ul>"
 
     return render_template(
         "page.html",
