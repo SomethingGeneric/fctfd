@@ -1,3 +1,5 @@
-# LC CTF Scoreboard
+# FCTFD
 
-Simple scoreboard app
+Free CTF Daemon
+
+Python Flask app for CTF-style events
