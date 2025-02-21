@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, redirect, url_for, make_respo
 import yaml
 
 import urllib.parse
-import os
+import os,sys
 
 app = Flask(__name__)
 
@@ -464,4 +464,7 @@ def admin():
         return redirect(url_for("login"))
 
 if __name__ == "__main__":
-    app.run(debug=True, host="0.0.0.0")
+    deb = True
+    if len(sys.argv) > 1 and sys.argv[1] == "prod":
+        deb = False
+    app.run(debug=deb, host="0.0.0.0")
