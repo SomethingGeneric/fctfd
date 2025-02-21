@@ -8,9 +8,11 @@
 ./venv/bin/pip install -r requirements.txt
 
 my_pwd=$(pwd)
+user=$(whoami)
 
 cp ctfscoreboard.service.ex ctfscoreboard.service
 sed -i "s/MYPWD/${my_pwd//\//\\/}/g" ctfscoreboard.service
+sed -i "s/UNAME/${user}/g" ctfscoreboard.service
 
 cp ctfscoreboard.service /etc/systemd/system/ctfscoreboard.service
 systemctl daemon-reload
