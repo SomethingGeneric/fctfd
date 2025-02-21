@@ -107,6 +107,13 @@ def dlist(data):
         return cn
     else:
         return None
+    
+def check_flag(challenge, try_flag):
+    for chal in challenges:
+        if chal["name"] == challenge:
+            if chal["flag"] == try_flag:
+                return True
+    return False
 
 
 reload_data()
@@ -230,7 +237,7 @@ def team(team_name):
                     "page.html",
                     page_name=f"Details - {team_name}",
                     content=render_template(
-                        "admin_team.html",
+                        "team_detail.html",
                         team_name=team_name,
                         score=team["score"],
                         members=team["players"],
@@ -247,7 +254,7 @@ def team(team_name):
         try:
             if not has_team(team_name):
                 return f"No such team: {team_name}", 500
-            if request.cookies.get("sk-lol") == PASSWD:
+            if request.cookies.get("sk-lol") == PASSWD: # Admin POST actions
                 if request.form.get("member_add") != "":
                     print(f"Adding member to {team_name}")
                     old_players = get_attrib(team_name, "players")
@@ -298,6 +305,21 @@ def team(team_name):
                         new_pts = curr_points - points
                         edit_team(team_name, "score", str(new_pts))
                 save_data()
+            else: # team POST request
+                if request.form.get("flag") != "" and request.form.get("subchallenge") != "": # team submitting a flag
+                    if check_flag(request.form.get("subchallenge"), request.form.get("flag")):
+                        challenges_done = get_attrib(team_name, "challenges-complete")
+                        challenges_wip = get_attrib(team_name, "challenges-working")
+                        challenge_name = request.form.get("subchallenge")
+                        if challenge_name in challenges_wip:
+                            challenges_wip.remove(challenge_name)
+                        challenges_done.append(challenge_name)
+                        edit_team(team_name, "challenges-complete", challenges_done)
+                        edit_team(team_name, "challenges-working", challenges_wip)
+                        points = int(get_chall(challenge_name)["points"])
+                        curr_points = int(get_attrib(team_name, "score"))
+                        new_pts = curr_points + points
+                        edit_team(team_name, "score", str(new_pts))
             return redirect(f"/teams/{team_name}")
         except Exception as e:
             return f"Error: {str(e)}"

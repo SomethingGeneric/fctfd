@@ -31,9 +31,9 @@
     {% endfor %}
     </ul>
 {% endif %}
-{% if auth %}
 <hr/>
 <form method="POST">
+    {% if auth %}
     <label for="member_add">Add member to team:</label>
     <input type="text" id="member_add" name="member_add">
     <br/>
@@ -61,12 +61,21 @@
     <label for="challenge_remove">Remove challenge:</label>
     <!-- <input type="text" id="challenge_remove" name="challenge_remove"> -->
     <select name="challenge_remove" id="challenge_remove">
-        <option value="none">(none)</option>
         {% for challenge in challenges %}
-            <option value="{{ challenge['name'] }}">{{ challenge['name'] }}</option>
+        <option value="{{ challenge['name'] }}">{{ challenge['name'] }}</option>
         {% endfor %}
     </select>
     <br/>
+    {% else %}
+    <label for="subchallenge">Submit a flag:</label>
+    <select name="subchallenge" id="subchallenge">
+        <option value="none">(none)</option>
+    {% for challenge in challenges %}
+        <option value="{{ challenge['name'] }}">{{ challenge['name'] }}</option>
+    {% endfor %}
+    </select>
+    <input type="text" id="flag" name="flag">
+    <br/>
+    {% endif %}
     <button type="submit">Go!</button>
 </form>
-{% endif %}

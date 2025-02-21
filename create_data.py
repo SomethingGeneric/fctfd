@@ -35,6 +35,7 @@ if input("Reset challenge data? (y/n): ") == "y":
         challenge["name"] = input("Challenge Name: ")
         challenge["points"] = int(input("Points: "))
         challenge["description"] = input("Description: ")
+        challenge["flag"] = input("Flag: ")
         challenges.append(challenge)
         next = input("Add another challenge? (y/n): ")
 
