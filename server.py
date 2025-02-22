@@ -488,6 +488,14 @@ def admin():
         )
     else:
         return redirect(url_for("login"))
+    
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template("page.html", page_name="404", content="Details: " + str(e)), 404
+
+@app.errorhandler(500)
+def page_broken(e):
+    return render_template("page.html", page_name="500", content="Details: " + str(e)), 500
 
 if __name__ == "__main__":
     deb = True
