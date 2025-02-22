@@ -4,6 +4,7 @@
 <p>Extra resource: <a href="{{ suplink }}">{{ suplink }}</a></p>
 {% endif %}
 {% if auth %}
+<p>Flag: {{ flag }}</p>
 <form method="POST">
     <label for="points_set">Set points earned on completion:</label>
     <input type="text" id="points_set" name="points_set">

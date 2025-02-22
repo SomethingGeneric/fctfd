@@ -363,7 +363,7 @@ def challenge(challenge_name):
                     "page.html",
                     page_name=f"Challenge Details - {challenge_name}",
                     content=render_template(
-                        "admin_challenge.html",
+                        "challenge_detail.html",
                         points=challenge["points"],
                         description=desc,
                         suplink=link,
@@ -375,10 +375,11 @@ def challenge(challenge_name):
                         "page.html",
                         page_name=f"Challenge Details - {challenge_name}",
                         content=render_template(
-                            "admin_challenge.html",
+                            "challenge_detail.html",
                             points=challenge["points"],
                             description=challenge["description"],
                             auth=auth,
+                            flag=challenge["flag"]
                         ),
                     )
         return f"Could not find '{challenge_name}'", 404
