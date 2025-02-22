@@ -1,34 +1,16 @@
 - challenges-complete: []
   challenges-working: []
-  logo-path: icon-glitch.png
-  name: Team 1
-  players:
-  - Avery
-  - Mike
+  name: Matt
   score: '0'
 - challenges-complete: []
   challenges-working: []
-  logo-path: icon-hacker.png
-  name: Team 2
-  players:
-  - Lily
-  - Morgan
+  name: Molly
   score: '0'
 - challenges-complete: []
   challenges-working: []
-  logo-path: icon-robot-blue.png
-  name: Team 3
-  players:
-  - Sierra
-  - Natalie
-  - Adra
+  name: Hannelore
   score: '0'
 - challenges-complete: []
   challenges-working: []
-  logo-path: icon-virus.png
-  name: Team 4
-  players:
-  - Sav
-  - Joe
-  - Chris
+  name: Nilufer
   score: '0'

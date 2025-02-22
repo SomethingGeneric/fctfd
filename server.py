@@ -236,14 +236,16 @@ def team(team_name):
         team_name = urllib.parse.unquote(team_name)
         for team in teams:
             if team["name"] == team_name:
+
+                members = team['players'] if 'players' in team.keys() else None
+
                 return render_template(
                     "page.html",
-                    page_name=f"Details - {team_name}",
+                    page_name=f"Team Page - {team_name}",
                     content=render_template(
                         "team_detail.html",
-                        team_name=team_name,
                         score=team["score"],
-                        members=team["players"],
+                        members=members,
                         challenges_done=team["challenges-complete"],
                         challenges_working=team["challenges-working"],
                         challenges=challenges,
@@ -432,10 +434,12 @@ def new_challenge():
             challenge_name = request.form.get("challenge_name")
             challenge_points = request.form.get("challenge_points")
             challenge_description = request.form.get("challenge_description")
+            challenge_flag = request.form.get("flag")
             if (
                 challenge_name == ""
                 or challenge_points == ""
                 or challenge_description == ""
+                or challenge_flag == ""
             ):
                 return "Error: Missing data"
             if has_challenge(challenge_name):
@@ -444,6 +448,7 @@ def new_challenge():
                 "name": challenge_name,
                 "points": challenge_points,
                 "description": challenge_description,
+                "flag": challenge_flag
             }
             challenges.append(new_challenge_data)
             save_data()

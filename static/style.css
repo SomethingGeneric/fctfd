@@ -1,6 +1,6 @@
 body {
     background: #c4df9b;
-    ffefwf-color: #2c2f36;
+    /* idk what this is ffefwf-color: #2c2f36; */
     color: #2a436b;
     font-family: 'Lato', sans-serif;
     padding-bottom: 50px;
@@ -56,4 +56,42 @@ footer {
     bottom: 0;
     width: 100%;
     z-index: 0;
+}
+
+input, select, button {
+    font-size: 2.2em;
+    padding: 10px 15px;
+    border: 2px solid #82c298;
+    border-radius: 8px;
+    background: white;
+    color: #2a436b;
+    font-family: 'Lato', sans-serif;
+    outline: none;
+}
+
+input:focus, select:focus, button:focus {
+    border-color: #5a9a72;
+    box-shadow: 0 0 10px rgba(90, 154, 114, 0.5);
+}
+
+button {
+    background: #82c298;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+button:hover {
+    background: #5a9a72;
+}
+
+button:active {
+    background: #467d5c;
+}
+
+/* Ensure form elements fit well within grid-items */
+.grid-item input, .grid-item select, .grid-item button {
+    width: 100%;
+    max-width: 400px;
 }
