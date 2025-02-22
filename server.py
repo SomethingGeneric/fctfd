@@ -368,6 +368,7 @@ def challenge(challenge_name):
                         description=desc,
                         suplink=link,
                         auth=auth,
+                        flag=challenge["flag"]
                     ),
                 )
                 else:
