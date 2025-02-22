@@ -399,6 +399,7 @@ def challenge(challenge_name):
                     "name": request.form.get("challenge_rename"),
                     "points": old_challenge_data["points"],
                     "description": old_challenge_data["description"],
+                    "flag": old_challenge_data["flag"]
                 }
                 challenges.append(new_challenge_data)
 
