@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, redirect, url_for, make_respo
 import yaml
 
 import urllib.parse
-import os,sys
+import os,sys,re
 
 app = Flask(__name__)
 
@@ -32,6 +32,9 @@ def reload_data():
         with open("db/challenges.yaml", "r") as f:
             challenges = yaml.safe_load(f)
 
+def extract_link(text):
+    match = re.search(r'https?://\S+', text)  # Matches both http and https
+    return match.group(0) if match else None
 
 def save_data():
     if not os.path.exists("db"):
@@ -351,16 +354,31 @@ def challenge(challenge_name):
         challenge_name = urllib.parse.unquote(challenge_name)
         for challenge in challenges:
             if challenge["name"] == challenge_name:
-                return render_template(
+                if "http" or "https" in challenge['description']:
+                    link = extract_link(challenge['description'])
+                    desc = challenge['description'].replace(link,'')
+                    return render_template(
                     "page.html",
                     page_name=f"Challenge Details - {challenge_name}",
                     content=render_template(
                         "admin_challenge.html",
                         points=challenge["points"],
-                        description=challenge["description"],
+                        description=desc,
+                        suplink=link,
                         auth=auth,
                     ),
                 )
+                else:
+                    return render_template(
+                        "page.html",
+                        page_name=f"Challenge Details - {challenge_name}",
+                        content=render_template(
+                            "admin_challenge.html",
+                            points=challenge["points"],
+                            description=challenge["description"],
+                            auth=auth,
+                        ),
+                    )
         return f"Could not find '{challenge_name}'", 404
     else:
         if request.cookies.get("sk-lol") == PASSWD:
