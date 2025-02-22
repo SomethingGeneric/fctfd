@@ -354,7 +354,7 @@ def challenge(challenge_name):
         challenge_name = urllib.parse.unquote(challenge_name)
         for challenge in challenges:
             if challenge["name"] == challenge_name:
-                if "http" or "https" in challenge['description']:
+                if "http" in challenge['description'] or "https" in challenge['description']:
                     link = extract_link(challenge['description'])
                     desc = challenge['description'].replace(link,'')
                     return render_template(
