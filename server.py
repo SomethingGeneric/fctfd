@@ -13,6 +13,10 @@ else:
     with open("db/admin.pass", "r") as f:
         PASSWD = f.read().strip()
 
+SMALL_SB = False
+if os.path.exists("db/small_sb"):
+    SMALL_SB = True
+
 teams = []
 challenges = []
 
@@ -134,30 +138,33 @@ def index():
 @app.route("/scoreboard")
 def scoreboard():
     max_points = 0
-    big_sb = True if len(teams) > 4 else False
 
     for challenge in challenges:
         max_points += int(challenge["points"])
 
     for team in teams:
+        logo = "icon-hacker.png"
+        if "logo-path" in team.keys():
+            logo = team["logo-path"]
+
         if int(team["score"]) == int(max_points):
             return render_template(
                 "won.html",
                 team_name=team["name"],
                 players=team["players"],
                 team=team,
-                team_logo="/static/" + team["logo-path"],
+                team_logo="/static/" + logo,
             )
 
-    sb_html = '<div class="grid-container">' if big_sb else "<ul><h2>Scoreboard</h2>"
+    sb_html = '<div class="grid-container">' if not SMALL_SB else "<ul><h2><img class=\"gang\" src=\"/static/Buddies.png\"/> Scoreboard</h2>"
 
     for team in teams:
-        if team["logo-path"] == "":
+        if "logo-path" not in team.keys():
             lp = "/static/error.png"
         else:
             lp = "/static/" + team["logo-path"]
 
-        if big_sb:
+        if not SMALL_SB:
             sb_html += (
                 '<div class="grid-item">'
                 + render_template(
@@ -176,7 +183,7 @@ def scoreboard():
                 )
             )
 
-    sb_html += "</div>" if big_sb else "</ul>"
+    sb_html += "</div>" if not SMALL_SB else "</ul>"
 
     return render_template(
         "page.html",
@@ -329,6 +336,36 @@ def team(team_name):
         except Exception as e:
             return f"Error: {str(e)}"
 
+@app.route("/teams/new", methods=["GET", "POST"])
+def new_team():
+    if request.method == "GET":
+        if request.cookies.get("sk-lol") == PASSWD:
+            return render_template(
+                "page.html",
+                page_name="New Team",
+                content=render_template("new_team.html"),
+            )
+        else:
+            return redirect(url_for("login"))
+    else:
+        if request.cookies.get("sk-lol") == PASSWD:
+            team_name = request.form.get("team_name")
+            if team_name == "":
+                return "Error: Missing data"
+            if has_team(team_name):
+                return "Error: Team already exists"
+            new_team_data = {
+                "name": team_name,
+                "score": "0",
+                "players": [],
+                "challenges-complete": [],
+                "challenges-working": [],
+            }
+            teams.append(new_team_data)
+            save_data()
+            return redirect("/teams/" + team_name)
+        else:
+            return redirect(url_for("login"))
 
 @app.route("/challenges")
 def chall_list():

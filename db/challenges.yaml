@@ -1,0 +1,47 @@
+- description: 'What show does the name for the programming language "Python" come
+    from? '
+  flag: Monty Python's Flying Circus
+  name: osint_Python
+  points: 1
+- description: Identify the organization associated with this IP address, 216.93.147.0
+  flag: champlain.edu
+  name: osint_IP_Adress
+  points: 1
+- description: What is the name of Lily Pouliot's Computer Science teacher from High
+    School?
+  flag: Bill LaBaire
+  name: osint_Back_to_the_Books
+  points: 1
+- description: What scholarship did both Hannelore and Savannah win in late 2024?
+  flag: FS-ISAC
+  name: osint_Money
+  points: 1
+- description: 'Look at this image: https://drive.google.com/file/d/1SC-5obKv-xgKgejSgQhxZB_TEsJPXGGh/view?usp=sharing.
+    What is the name of this UVM building on Google maps? '
+  flag: Theatre Department
+  name: osint_UVM
+  points: 1
+- description: 'Go to this link: https://drive.google.com/file/d/1hXZ3iPkaXgHEz39ZfOgYgWaGo_M_I-rj/view?usp=drive_link
+    What is the name of the city and state this Gaylord Hotel is located in?'
+  flag: Orlando, Florida
+  name: osint_Gaylord
+  points: 1
+- description: What is the name of the boss that Savannah Ciak's boyfriend had in
+    the summer of 2024?
+  flag: Karen Veilleux
+  name: osint_Social_Media_Hopping
+  points: 1
+- description: What is Hannelore's brother's name?
+  flag: Milo Sanokklis
+  name: osint_Brother
+  points: 1
+- description: According to the Driver DataBase, what is the CrowdStrike CEO's racing
+    win rate?
+  flag: 25.5%
+  name: osint_Racing_CEOs
+  points: 1
+- description: What is the fax number of the cemetery where the oldest living Titanic
+    survivor's son was buried?
+  flag: 315-479-7743
+  name: osint_Deep_Dive
+  points: 1

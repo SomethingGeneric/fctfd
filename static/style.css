@@ -1,21 +1,27 @@
 body {
-    background: #c4df9b;
+    background: #b6d1d2;
+    /* CyberTech BGcolor: background: #c4df9b;
     /* idk what this is ffefwf-color: #2c2f36; */
-    color: #2a436b;
+    color: #700574;
+    /* old CyberTech color: #82c298 */
     font-family: 'Lato', sans-serif;
     padding-bottom: 50px;
+}
+
+.gang {
+    height: 2em;
 }
 
 .grid-container {
     display: grid;
     grid-template-columns: auto auto;
-    background-color: #82c298;
+    background-color: #700574;
     padding: 10px;
 }
 
 .grid-item {
     background-color: white;
-    border: 1px solid #82c298;
+    border: 1px solid #700574;
     padding: 20px;
     font-size: 30px;
     text-align: center;
@@ -61,10 +67,10 @@ footer {
 input, select, button {
     font-size: 2.2em;
     padding: 10px 15px;
-    border: 2px solid #82c298;
+    border: 2px solid #700574;
     border-radius: 8px;
     background: white;
-    color: #2a436b;
+    color: #340236;
     font-family: 'Lato', sans-serif;
     outline: none;
 }
@@ -75,7 +81,7 @@ input:focus, select:focus, button:focus {
 }
 
 button {
-    background: #82c298;
+    background: #700574;
     color: white;
     font-weight: bold;
     cursor: pointer;
