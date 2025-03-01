@@ -15,7 +15,7 @@ def update_csv_to_yaml(csv_file, chal_name_prefix):
         next(reader)  # Skip header row if present
 
         for row in reader:
-            name = row[0]
+            name = row[0].replace(" ", "_")
             description = row[1]
             flag = row[2]
 
