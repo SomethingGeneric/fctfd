@@ -82,6 +82,15 @@ def edit_team(name, key, value):
 
     return False
 
+def remove_team(name):
+    global teams
+    for team in teams:
+        if team['name'] == name:
+            teams.remove(team)
+            save_data()
+            reload_data()
+            return True
+    return False
 
 def edit_chall(name, key, value):
     global challenges
@@ -262,11 +271,18 @@ def team(team_name):
                 )
 
         return "{}", 404
-    else:
+    elif request.method == "POST":
         try:
             if not has_team(team_name):
                 return f"No such team: {team_name}", 500
             if request.cookies.get("sk-lol") == PASSWD: # Admin POST actions
+
+                if request.form.get("delete_team") != "":
+                    # buhbye
+                    print(f"Deleting team: {team_name}")
+                    remove_team(team_name)
+                    return redirect("/teams")
+
                 if request.form.get("member_add") != "":
                     print(f"Adding member to {team_name}")
                     old_players = get_attrib(team_name, "players")
