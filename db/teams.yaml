@@ -16,3 +16,8 @@
   name: Savannah
   players: []
   score: '0'
+- challenges-complete: []
+  challenges-working: []
+  name: test
+  players: []
+  score: '0'

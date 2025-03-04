@@ -239,7 +239,7 @@ def teams_list():
     return render_template(
         "page.html",
         page_name="Team List",
-        content=team_list,
+        content=team_list + "<br/><br/><a href='/teams/new'>New Team</a>",
     )
 
 
@@ -355,33 +355,28 @@ def team(team_name):
 @app.route("/teams/new", methods=["GET", "POST"])
 def new_team():
     if request.method == "GET":
-        if request.cookies.get("sk-lol") == PASSWD:
-            return render_template(
-                "page.html",
-                page_name="New Team",
-                content=render_template("new_team.html"),
-            )
-        else:
-            return redirect(url_for("login"))
+        return render_template(
+            "page.html",
+            page_name="New Team",
+            content=render_template("new_team.html"),
+        )
     else:
-        if request.cookies.get("sk-lol") == PASSWD:
-            team_name = request.form.get("team_name")
-            if team_name == "":
-                return "Error: Missing data"
-            if has_team(team_name):
-                return "Error: Team already exists"
-            new_team_data = {
-                "name": team_name,
-                "score": "0",
-                "players": [],
-                "challenges-complete": [],
-                "challenges-working": [],
-            }
-            teams.append(new_team_data)
-            save_data()
-            return redirect("/teams/" + team_name)
-        else:
-            return redirect(url_for("login"))
+        team_name = request.form.get("team_name")
+        if team_name == "":
+            return "Error: Missing data"
+        if has_team(team_name):
+            return "Error: Team already exists"
+        new_team_data = {
+            "name": team_name,
+            "score": "0",
+            "players": [],
+            "challenges-complete": [],
+            "challenges-working": [],
+        }
+        teams.append(new_team_data)
+        save_data()
+        return redirect("/teams/" + team_name)
+
 
 @app.route("/challenges")
 def chall_list():
