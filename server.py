@@ -165,7 +165,7 @@ def scoreboard():
                 team_logo="/static/" + logo,
             )
 
-    sb_html = '<div class="grid-container">' if not SMALL_SB else "<ul><h2><img class=\"gang\" src=\"/static/Buddies.png\"/> Scoreboard</h2><h3><a href='/teams/new'>Sign up!</a><br/></h3>"
+    sb_html = '<div class="grid-container">' if not SMALL_SB else "<ul><h2><img class=\"gang\" src=\"/static/Buddies.png\"/> Scoreboard</h2><h3>Register to submit flags at: https://score.goober.cloud/teams/new</h3>"
 
     for team in teams:
         if "logo-path" not in team.keys():
