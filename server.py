@@ -349,6 +349,7 @@ def team(team_name):
                             curr_points = int(get_attrib(team_name, "score"))
                             new_pts = curr_points + points
                             edit_team(team_name, "score", str(new_pts))
+                            save_data()
             return redirect(f"/teams/{team_name}")
         except Exception as e:
             return f"Error: {str(e)}"
