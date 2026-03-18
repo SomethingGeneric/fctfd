@@ -339,15 +339,16 @@ def team(team_name):
                         challenges_done = get_attrib(team_name, "challenges-complete")
                         challenges_wip = get_attrib(team_name, "challenges-working")
                         challenge_name = request.form.get("subchallenge")
-                        if challenge_name in challenges_wip:
-                            challenges_wip.remove(challenge_name)
-                        challenges_done.append(challenge_name)
-                        edit_team(team_name, "challenges-complete", challenges_done)
-                        edit_team(team_name, "challenges-working", challenges_wip)
-                        points = int(get_chall(challenge_name)["points"])
-                        curr_points = int(get_attrib(team_name, "score"))
-                        new_pts = curr_points + points
-                        edit_team(team_name, "score", str(new_pts))
+                        if challenge_name not in challenges_done:
+                            if challenge_name in challenges_wip:
+                                challenges_wip.remove(challenge_name)
+                            challenges_done.append(challenge_name)
+                            edit_team(team_name, "challenges-complete", challenges_done)
+                            edit_team(team_name, "challenges-working", challenges_wip)
+                            points = int(get_chall(challenge_name)["points"])
+                            curr_points = int(get_attrib(team_name, "score"))
+                            new_pts = curr_points + points
+                            edit_team(team_name, "score", str(new_pts))
             return redirect(f"/teams/{team_name}")
         except Exception as e:
             return f"Error: {str(e)}"
