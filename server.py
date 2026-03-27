@@ -17,6 +17,11 @@ SMALL_SB = False
 if os.path.exists("db/small_sb"):
     SMALL_SB = True
 
+THEME = "default"
+if os.path.exists("db/theme"):
+    with open("db/theme", "r") as f:
+        THEME = f.read().strip()
+
 teams = []
 challenges = []
 
@@ -135,6 +140,11 @@ def check_flag(challenge, try_flag):
 reload_data()
 
 
+@app.context_processor
+def inject_theme():
+    return {"theme": THEME if THEME != "default" else ""}
+
+
 @app.route("/")
 def index():
     return render_template(
@@ -165,9 +175,9 @@ def scoreboard():
                 team_logo="/static/" + logo,
             )
 
-    sb_html = '<div class="grid-container">' if not SMALL_SB else "<ul><h2><img class=\"gang\" src=\"/static/Buddies.png\"/> Scoreboard</h2><h3>Register to submit flags at: https://score.goober.cloud/teams/new</h3><h3>List of challenges: https://score.goober.cloud/challenges</h3>"
+    sb_html = '<div class="grid-container">' if not SMALL_SB else "<ul>"
 
-    for team in teams:
+    for team in sorted(teams, key=lambda t: int(t["score"]), reverse=True):
         if "logo-path" not in team.keys():
             lp = "/static/error.png"
         else:
@@ -267,6 +277,7 @@ def team(team_name):
                         challenges=challenges,
                         auth=auth,
                         team=team,
+                        flag_msg=request.args.get("msg"),
                     ),
                 )
 
@@ -334,7 +345,8 @@ def team(team_name):
                         edit_team(team_name, "score", str(new_pts))
                 save_data()
             else: # team POST request
-                if request.form.get("flag") != "" and request.form.get("subchallenge") != "": # team submitting a flag
+                flag_msg = None
+                if request.form.get("flag") != "" and request.form.get("subchallenge") != "none": # team submitting a flag
                     if check_flag(request.form.get("subchallenge"), request.form.get("flag")):
                         challenges_done = get_attrib(team_name, "challenges-complete")
                         challenges_wip = get_attrib(team_name, "challenges-working")
@@ -350,6 +362,13 @@ def team(team_name):
                             new_pts = curr_points + points
                             edit_team(team_name, "score", str(new_pts))
                             save_data()
+                            flag_msg = "correct"
+                        else:
+                            flag_msg = "already"
+                    else:
+                        flag_msg = "incorrect"
+                if flag_msg:
+                    return redirect(f"/teams/{team_name}?msg={flag_msg}")
             return redirect(f"/teams/{team_name}")
         except Exception as e:
             return f"Error: {str(e)}"
@@ -534,10 +553,32 @@ def admin():
         return render_template(
             "page.html",
             page_name="Admin",
-            content=render_template("admin.html", teams=t_html, challenges=c_html),
+            content=render_template("admin.html", teams=t_html, challenges=c_html, current_theme=THEME, small_sb=SMALL_SB),
         )
     else:
         return redirect(url_for("login"))
+
+
+@app.route("/admin/settings", methods=["POST"])
+def admin_settings():
+    global THEME, SMALL_SB
+    if request.cookies.get("sk-lol") != PASSWD:
+        return redirect(url_for("login"))
+
+    new_theme = request.form.get("theme", "default")
+    if new_theme in ("default", "dark", "hacker"):
+        THEME = new_theme
+        with open("db/theme", "w") as f:
+            f.write(THEME)
+
+    new_small_sb = request.form.get("small_sb") == "on"
+    SMALL_SB = new_small_sb
+    if SMALL_SB:
+        open("db/small_sb", "w").close()
+    elif os.path.exists("db/small_sb"):
+        os.remove("db/small_sb")
+
+    return redirect(url_for("admin"))
     
 @app.errorhandler(404)
 def page_not_found(e):

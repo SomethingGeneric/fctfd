@@ -3,3 +3,17 @@
 {{ challenges | safe }}
 <p><a href="/challenges/new">Add challenge</a></p>
 <p><a href="/teams/new">Add team</a></p>
+<hr/>
+<form method="POST" action="/admin/settings">
+    <label for="theme">Theme:</label>
+    <select name="theme" id="theme">
+        <option value="default" {% if current_theme == "default" %}selected{% endif %}>Default</option>
+        <option value="dark" {% if current_theme == "dark" %}selected{% endif %}>Dark</option>
+        <option value="hacker" {% if current_theme == "hacker" %}selected{% endif %}>Hacker</option>
+    </select>
+    <br/><br/>
+    <label for="small_sb">Compact scoreboard:</label>
+    <input type="checkbox" name="small_sb" id="small_sb" {% if small_sb %}checked{% endif %}>
+    <br/><br/>
+    <button type="submit">Save Settings</button>
+</form>

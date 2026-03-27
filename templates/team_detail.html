@@ -70,6 +70,13 @@
     <input name="delete_team" id="delete_team" type="checkbox"/>
     <br/>
     {% else %}
+    {% if flag_msg == "correct" %}
+    <p style="color: green;">Correct flag! Points awarded.</p>
+    {% elif flag_msg == "already" %}
+    <p style="color: orange;">You already completed that challenge.</p>
+    {% elif flag_msg == "incorrect" %}
+    <p style="color: red;">Incorrect flag. Try again!</p>
+    {% endif %}
     <label for="subchallenge">Submit a flag:</label>
     <select name="subchallenge" id="subchallenge">
         <option value="none">(none)</option>

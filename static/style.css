@@ -1,9 +1,48 @@
+:root {
+    --bg: #b6d1d2;
+    --text: #700574;
+    --input-text: #340236;
+    --border: #700574;
+    --button-bg: #700574;
+    --button-hover: #5a9a72;
+    --button-active: #467d5c;
+    --grid-bg: #700574;
+    --grid-item-bg: white;
+    --focus-border: #5a9a72;
+    --focus-shadow: rgba(90, 154, 114, 0.5);
+}
+
+[data-theme="dark"] {
+    --bg: #1a1a2e;
+    --text: #c9b8ff;
+    --input-text: #c0c0c0;
+    --border: #6a5acd;
+    --button-bg: #6a5acd;
+    --button-hover: #8a7aed;
+    --button-active: #4a3aad;
+    --grid-bg: #2a2a4e;
+    --grid-item-bg: #16213e;
+    --focus-border: #8a7aed;
+    --focus-shadow: rgba(138, 122, 237, 0.5);
+}
+
+[data-theme="hacker"] {
+    --bg: #0d0d0d;
+    --text: #00ff41;
+    --input-text: #00cc33;
+    --border: #00ff41;
+    --button-bg: #003300;
+    --button-hover: #00ff41;
+    --button-active: #009900;
+    --grid-bg: #003300;
+    --grid-item-bg: #0d0d0d;
+    --focus-border: #00ff41;
+    --focus-shadow: rgba(0, 255, 65, 0.4);
+}
+
 body {
-    background: #b6d1d2;
-    /* CyberTech BGcolor: background: #c4df9b;
-    /* idk what this is ffefwf-color: #2c2f36; */
-    color: #700574;
-    /* old CyberTech color: #82c298 */
+    background: var(--bg);
+    color: var(--text);
     font-family: 'Lato', sans-serif;
     padding-bottom: 50px;
 }
@@ -15,13 +54,13 @@ body {
 .grid-container {
     display: grid;
     grid-template-columns: auto auto;
-    background-color: #700574;
+    background-color: var(--grid-bg);
     padding: 10px;
 }
 
 .grid-item {
-    background-color: white;
-    border: 1px solid #700574;
+    background-color: var(--grid-item-bg);
+    border: 1px solid var(--border);
     padding: 20px;
     font-size: 30px;
     text-align: center;
@@ -49,6 +88,7 @@ label {
 
 a {
     font-size: 2.2em;
+    color: var(--text);
 }
 
 p a {
@@ -67,33 +107,33 @@ footer {
 input, select, button {
     font-size: 2.2em;
     padding: 10px 15px;
-    border: 2px solid #700574;
+    border: 2px solid var(--border);
     border-radius: 8px;
-    background: white;
-    color: #340236;
+    background: var(--grid-item-bg);
+    color: var(--input-text);
     font-family: 'Lato', sans-serif;
     outline: none;
 }
 
 input:focus, select:focus, button:focus {
-    border-color: #5a9a72;
-    box-shadow: 0 0 10px rgba(90, 154, 114, 0.5);
+    border-color: var(--focus-border);
+    box-shadow: 0 0 10px var(--focus-shadow);
 }
 
 button {
-    background: #700574;
-    color: white;
+    background: var(--button-bg);
+    color: var(--bg);
     font-weight: bold;
     cursor: pointer;
     transition: background 0.3s;
 }
 
 button:hover {
-    background: #5a9a72;
+    background: var(--button-hover);
 }
 
 button:active {
-    background: #467d5c;
+    background: var(--button-active);
 }
 
 /* Ensure form elements fit well within grid-items */
